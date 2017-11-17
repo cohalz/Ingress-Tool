@@ -94,10 +94,10 @@ const wrapper = function (pluginInfo) {
 
     window.plugin.scoreboardInPolygons.countPortals = function (polygons) {
 
-        const portalCount = {};
+        const portalsCount = {};
 
-        portalCount[TEAM_RES] = 0;
-        portalCount[TEAM_ENL] = 0;
+        portalsCount[TEAM_RES] = 0;
+        portalsCount[TEAM_ENL] = 0;
 
         $.each(window.portals, (i, portal) => {
 
@@ -105,7 +105,7 @@ const wrapper = function (pluginInfo) {
 
                 if (plugin.scoreboardInPolygons.containsPoint(polygon, portal.getLatLng())) {
 
-                    portalCount[portal.options.team]++;
+                    portalsCount[portal.options.team]++;
                     break;
 
                 }
@@ -114,16 +114,16 @@ const wrapper = function (pluginInfo) {
 
         });
 
-        return portalCount;
+        return portalsCount;
 
     };
 
     window.plugin.scoreboardInPolygons.countLinks = function (polygons) {
 
-        const linkCount = {};
+        const linksCount = {};
 
-        linkCount[TEAM_RES] = 0;
-        linkCount[TEAM_ENL] = 0;
+        linksCount[TEAM_RES] = 0;
+        linksCount[TEAM_ENL] = 0;
 
         $.each(window.links, (guid, link) => {
 
@@ -131,7 +131,7 @@ const wrapper = function (pluginInfo) {
 
                 if (link.getLatLngs().some((node) => plugin.scoreboardInPolygons.containsPoint(polygon, node))) {
 
-                    linkCount[link.options.team]++;
+                    linksCount[link.options.team]++;
                     break;
 
                 }
@@ -140,16 +140,16 @@ const wrapper = function (pluginInfo) {
 
         });
 
-        return linkCount;
+        return linksCount;
 
     };
 
     window.plugin.scoreboardInPolygons.countFields = function (polygons) {
 
-        const fieldCount = {};
+        const fieldsCount = {};
 
-        fieldCount[TEAM_RES] = 0;
-        fieldCount[TEAM_ENL] = 0;
+        fieldsCount[TEAM_RES] = 0;
+        fieldsCount[TEAM_ENL] = 0;
 
         $.each(window.fields, (guid, field) => {
 
@@ -157,7 +157,7 @@ const wrapper = function (pluginInfo) {
 
                 if (field.getLatLngs().every((node) => plugin.scoreboardInPolygons.containsPoint(polygon, node))) {
 
-                    fieldCount[field.options.team]++;
+                    fieldsCount[field.options.team]++;
                     break;
 
                 }
@@ -166,7 +166,7 @@ const wrapper = function (pluginInfo) {
 
         });
 
-        return fieldCount;
+        return fieldsCount;
 
     };
 
