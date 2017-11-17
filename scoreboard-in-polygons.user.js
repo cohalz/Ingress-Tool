@@ -5,7 +5,7 @@
 // @category       Info
 // @namespace      https://github.com/jonatkins/ingress-intel-total-conversion
 // @downloadURL    https://github.com/cohalz/Ingress-Tool/raw/master/scoreboard-in-polygons.user.js
-// @description    [iitc-test-2017-11-17-115622] Display a scoreboard about all portals, link & field counts in polygons.
+// @description    [iitc-test-2017-11-17-115622] Display 3 scoreboards about all portals, links & fields count in polygons.
 // @include        https://*.ingress.com/intel*
 // @include        http://*.ingress.com/intel*
 // @match          https://*.ingress.com/intel*
@@ -91,7 +91,7 @@ const wrapper = function (pluginInfo) {
 
     };
 
-    window.plugin.scoreboardInPolygons.getPortalCount = function (polygons) {
+    window.plugin.scoreboardInPolygons.countPortals = function (polygons) {
 
         const portalCount = {};
 
@@ -117,7 +117,7 @@ const wrapper = function (pluginInfo) {
 
     };
 
-    window.plugin.scoreboardInPolygons.getLinkCount = function (polygons) {
+    window.plugin.scoreboardInPolygons.countLinks = function (polygons) {
 
         const linkCount = {};
 
@@ -143,7 +143,7 @@ const wrapper = function (pluginInfo) {
 
     };
 
-    window.plugin.scoreboardInPolygons.getFieldCount = function (polygons) {
+    window.plugin.scoreboardInPolygons.countFields = function (polygons) {
 
         const fieldCount = {};
 
@@ -207,17 +207,17 @@ const wrapper = function (pluginInfo) {
 
         const visiblePolygons = window.plugin.scoreboardInPolygons.getVisiblePolygons();
 
-        const portalCount = window.plugin.scoreboardInPolygons.getPortalCount(visiblePolygons);
-        const linkCount = window.plugin.scoreboardInPolygons.getLinkCount(visiblePolygons);
-        const fieldCount = window.plugin.scoreboardInPolygons.getFieldCount(visiblePolygons);
+        const portalsCount = window.plugin.scoreboardInPolygons.countPortals(visiblePolygons);
+        const linksCount = window.plugin.scoreboardInPolygons.countLinks(visiblePolygons);
+        const fieldsCount = window.plugin.scoreboardInPolygons.countFields(visiblePolygons);
 
-        const resPortalsPer = 100 * portalCount[TEAM_RES] / (portalCount[TEAM_ENL] + portalCount[TEAM_RES]);
+        const resPortalsPer = 100 * portalsCount[TEAM_RES] / (portalsCount[TEAM_ENL] + portalsCount[TEAM_RES]);
         const enlPortalsPer = 100 - resPortalsPer;
 
-        const resLinksPer = 100 * linkCount[TEAM_RES] / (linkCount[TEAM_ENL] + linkCount[TEAM_RES]);
+        const resLinksPer = 100 * linksCount[TEAM_RES] / (linksCount[TEAM_ENL] + linksCount[TEAM_RES]);
         const enlLinksPer = 100 - resLinksPer;
 
-        const resFieldsPer = 100 * fieldCount[TEAM_RES] / (fieldCount[TEAM_ENL] + fieldCount[TEAM_RES]);
+        const resFieldsPer = 100 * fieldsCount[TEAM_RES] / (fieldsCount[TEAM_ENL] + fieldsCount[TEAM_RES]);
         const enlFieldsPer = 100 - resFieldsPer;
 
         html += '<table class="portals">' +
@@ -228,20 +228,20 @@ const wrapper = function (pluginInfo) {
 
         html += '<tr><td style="text-align:center;">Portals</td>';
 
-        html += `<td class="scoreboardInPolygons" title="Resistance:\t${portalCount[TEAM_RES]}\tPortals\nEnlightened:\t${portalCount[TEAM_ENL]}\tPortals">`;
+        html += `<td class="scoreboardInPolygons" title="Resistance:\t${portalsCount[TEAM_RES]}\tPortals\nEnlightened:\t${portalsCount[TEAM_ENL]}\tPortals">`;
         html += `<span class="res" style="width:${resPortalsPer}%;">${Math.round(resPortalsPer)}%&nbsp;</span>`;
         html += `<span class="enl" style="width:${enlPortalsPer}%;">&nbsp;${Math.round(enlPortalsPer)}%</span>`;
         html += '</td></tr>';
 
         html += '<tr><td style="text-align:center;">Links</td>';
 
-        html += `<td class="scoreboardInPolygons" title="Resistance:\t${linkCount[TEAM_RES]}\tLinks\nEnlightened:\t${linkCount[TEAM_ENL]}\tLinks">`;
+        html += `<td class="scoreboardInPolygons" title="Resistance:\t${linksCount[TEAM_RES]}\tLinks\nEnlightened:\t${linksCount[TEAM_ENL]}\tLinks">`;
         html += `<span class="res" style="width:${resLinksPer}%;">${Math.round(resLinksPer)}%&nbsp;</span>`;
         html += `<span class="enl" style="width:${enlLinksPer}%;">&nbsp;${Math.round(enlLinksPer)}%</span>`;
         html += '</td></tr>';
 
         html += '<tr><td style="text-align:center;">Fields</td>';
-        html += `<td class="scoreboardInPolygons" title="Resistance:\t${fieldCount[TEAM_RES]}\tFields\nEnlightened:\t${fieldCount[TEAM_ENL]}\tFields">`;
+        html += `<td class="scoreboardInPolygons" title="Resistance:\t${fieldsCount[TEAM_RES]}\tFields\nEnlightened:\t${fieldsCount[TEAM_ENL]}\tFields">`;
         html += `<span class="res" style="width:${resFieldsPer}%;">${Math.round(resFieldsPer)}%&nbsp;</span>`;
         html += `<span class="enl" style="width:${enlFieldsPer}%;">&nbsp;${Math.round(enlFieldsPer)}%</span>`;
         html += '</td><tr></table>';
