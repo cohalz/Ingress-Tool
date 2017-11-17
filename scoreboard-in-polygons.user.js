@@ -193,7 +193,7 @@ const wrapper = function (pluginInfo) {
                 "dialogClass": 'ui-dialog-scoreboard-in-polygons',
                 "html": `<div id="scoreboardInPolygons">${html}</div>`,
                 "id": 'ScoreboardInPolygons',
-                "title": 'ScoreboardInPolygons',
+                "title": 'Scoreboard In Polygons',
                 "width": 700
             });
 
