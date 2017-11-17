@@ -5,7 +5,7 @@
 // @category       Info
 // @namespace      https://github.com/jonatkins/ingress-intel-total-conversion
 // @downloadURL    https://github.com/cohalz/Ingress-Tool/raw/master/scoreboard-in-polygons.user.js
-// @description    [iitc-test-2017-11-17-115622] Display 3 scoreboards about all portals, links & fields count in polygons.
+// @description    [iitc-test-2017-11-17-115622] Display a scoreboard about all portals, links & fields count in polygons.
 // @include        https://*.ingress.com/intel*
 // @include        http://*.ingress.com/intel*
 // @match          https://*.ingress.com/intel*
@@ -179,7 +179,6 @@ const wrapper = function (pluginInfo) {
 
         }
 
-
         const html = window.plugin.scoreboardInPolygons.createScoreboardTable();
 
         if (window.useAndroidPanes()) {
@@ -214,7 +213,7 @@ const wrapper = function (pluginInfo) {
         html += '<table class="portals">' +
             '<tr>' +
             '<th class="firstColumn">Metrics</th>' +
-            '<th class="secondColumn">Scoreboards</th>' +
+            '<th class="secondColumn">Scores</th>' +
             '</tr>\n';
 
         html += window.plugin.scoreboardInPolygons.createBarGraph("Portals", portalsCount);
