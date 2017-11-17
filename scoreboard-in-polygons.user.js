@@ -211,42 +211,36 @@ const wrapper = function (pluginInfo) {
         const linksCount = window.plugin.scoreboardInPolygons.countLinks(visiblePolygons);
         const fieldsCount = window.plugin.scoreboardInPolygons.countFields(visiblePolygons);
 
-        const resPortalsPer = 100 * portalsCount[TEAM_RES] / (portalsCount[TEAM_ENL] + portalsCount[TEAM_RES]);
-        const enlPortalsPer = 100 - resPortalsPer;
-
-        const resLinksPer = 100 * linksCount[TEAM_RES] / (linksCount[TEAM_ENL] + linksCount[TEAM_RES]);
-        const enlLinksPer = 100 - resLinksPer;
-
-        const resFieldsPer = 100 * fieldsCount[TEAM_RES] / (fieldsCount[TEAM_ENL] + fieldsCount[TEAM_RES]);
-        const enlFieldsPer = 100 - resFieldsPer;
-
         html += '<table class="portals">' +
             '<tr>' +
             '<th class="firstColumn">Metrics</th>' +
             '<th class="secondColumn">Scoreboards</th>' +
             '</tr>\n';
 
-        html += '<tr><td style="text-align:center;">Portals</td>';
+        html += window.plugin.scoreboardInPolygons.createBarGraph("Portals", portalsCount);
+        html += window.plugin.scoreboardInPolygons.createBarGraph("Links", linksCount);
+        html += window.plugin.scoreboardInPolygons.createBarGraph("Fields", fieldsCount);
 
-        html += `<td class="scoreboardInPolygons" title="Resistance:\t${portalsCount[TEAM_RES]}\tPortals\nEnlightened:\t${portalsCount[TEAM_ENL]}\tPortals">`;
-        html += `<span class="res" style="width:${resPortalsPer}%;">${Math.round(resPortalsPer)}%&nbsp;</span>`;
-        html += `<span class="enl" style="width:${enlPortalsPer}%;">&nbsp;${Math.round(enlPortalsPer)}%</span>`;
-        html += '</td></tr>';
-
-        html += '<tr><td style="text-align:center;">Links</td>';
-
-        html += `<td class="scoreboardInPolygons" title="Resistance:\t${linksCount[TEAM_RES]}\tLinks\nEnlightened:\t${linksCount[TEAM_ENL]}\tLinks">`;
-        html += `<span class="res" style="width:${resLinksPer}%;">${Math.round(resLinksPer)}%&nbsp;</span>`;
-        html += `<span class="enl" style="width:${enlLinksPer}%;">&nbsp;${Math.round(enlLinksPer)}%</span>`;
-        html += '</td></tr>';
-
-        html += '<tr><td style="text-align:center;">Fields</td>';
-        html += `<td class="scoreboardInPolygons" title="Resistance:\t${fieldsCount[TEAM_RES]}\tFields\nEnlightened:\t${fieldsCount[TEAM_ENL]}\tFields">`;
-        html += `<span class="res" style="width:${resFieldsPer}%;">${Math.round(resFieldsPer)}%&nbsp;</span>`;
-        html += `<span class="enl" style="width:${enlFieldsPer}%;">&nbsp;${Math.round(enlFieldsPer)}%</span>`;
-        html += '</td><tr></table>';
+        html += '</table>';
 
         return html;
+
+    };
+
+    window.plugin.scoreboardInPolygons.createBarGraph = function (metricName, count) {
+
+        const resPer = 100 * count[TEAM_RES] / (count[TEAM_ENL] + count[TEAM_RES]);
+        const enlPer = 100 - resPer;
+
+        barGraphHtml = '';
+
+        barGraphHtml += `<tr><td style="text-align:center;">${metricName}</td>`;
+        barGraphHtml += `<td class="scoreboardInPolygons" title="Resistance:\t${count[TEAM_RES]}\t${metricName}\nEnlightened:\t${count[TEAM_ENL]}\t${metricName}">`;
+        barGraphHtml += `<span class="res" style="width:${resPer}%;">${Math.round(resPer)}%&nbsp;</span>`;
+        barGraphHtml += `<span class="enl" style="width:${enlPer}%;">&nbsp;${Math.round(enlPer)}%</span>`;
+        barGraphHtml += '</td><tr>';
+
+        return barGraphHtml;
 
     };
 
