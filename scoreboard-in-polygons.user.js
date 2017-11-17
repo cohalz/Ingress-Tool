@@ -66,7 +66,7 @@ const wrapper = function (pluginInfo) {
 
     };
 
-    window.plugin.scoreboardInPolygons.pointContains = function (polygon, point) {
+    window.plugin.scoreboardInPolygons.containsPoint = function (polygon, point) {
 
         const polygonPoint = polygon.getLatLngs();
 
@@ -103,7 +103,7 @@ const wrapper = function (pluginInfo) {
 
             for (const polygon of polygons) {
 
-                if (plugin.scoreboardInPolygons.pointContains(polygon, portal.getLatLng())) {
+                if (plugin.scoreboardInPolygons.containsPoint(polygon, portal.getLatLng())) {
 
                     portalCount[portal.options.team]++;
                     break;
@@ -129,7 +129,7 @@ const wrapper = function (pluginInfo) {
 
             for (const polygon of polygons) {
 
-                if (link.getLatLngs().some((linkPoint) => plugin.scoreboardInPolygons.pointContains(polygon, linkPoint))) {
+                if (link.getLatLngs().some((linkPoint) => plugin.scoreboardInPolygons.containsPoint(polygon, linkPoint))) {
 
                     linkCount[link.options.team]++;
                     break;
@@ -155,7 +155,7 @@ const wrapper = function (pluginInfo) {
 
             for (const polygon of polygons) {
 
-                if (field.getLatLngs().every((fieldPoint) => plugin.scoreboardInPolygons.pointContains(polygon, fieldPoint))) {
+                if (field.getLatLngs().every((fieldPoint) => plugin.scoreboardInPolygons.containsPoint(polygon, fieldPoint))) {
 
                     fieldCount[field.options.team]++;
                     break;
