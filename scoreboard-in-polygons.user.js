@@ -211,11 +211,7 @@ const wrapper = function (pluginInfo) {
         const linksCount = window.plugin.scoreboardInPolygons.countLinks(visiblePolygons);
         const fieldsCount = window.plugin.scoreboardInPolygons.countFields(visiblePolygons);
 
-        html += '<table class="portals">' +
-            '<tr>' +
-            '<th class="firstColumn">Metrics</th>' +
-            '<th class="secondColumn">Scores</th>' +
-            '</tr>\n';
+        html += '<table><tr><th>Metrics</th><th>Scores</th></tr>';
 
         html += window.plugin.scoreboardInPolygons.createBarGraph("Portals", portalsCount);
         html += window.plugin.scoreboardInPolygons.createBarGraph("Links", linksCount);
@@ -234,8 +230,8 @@ const wrapper = function (pluginInfo) {
 
         barGraphHtml = '';
 
-        barGraphHtml += `<tr><td style="text-align:center;">${metricName}</td>`;
-        barGraphHtml += `<td class="scoreboardInPolygons" title="Resistance:\t${count[TEAM_RES]}\t${metricName}\nEnlightened:\t${count[TEAM_ENL]}\t${metricName}">`;
+        barGraphHtml += `<tr><td class="metric-name">${metricName}</td>`;
+        barGraphHtml += `<td title="Resistance:\t${count[TEAM_RES]}\t${metricName}\nEnlightened:\t${count[TEAM_ENL]}\t${metricName}">`;
         barGraphHtml += `<span class="res" style="width:${resPer}%;">${Math.round(resPer)}%</span>`;
         barGraphHtml += `<span class="enl" style="width:${enlPer}%;">${Math.round(enlPer)}%</span>`;
         barGraphHtml += '</td><tr>';
@@ -261,17 +257,11 @@ const wrapper = function (pluginInfo) {
         $('head').append('<style>' +
             '#scoreboardInPolygons.mobile {background: transparent; border: 0 none !important; height: 100% !important; width: 100% !important; left: 0 !important; top: 0 !important; position: absolute; overflow: auto; }' +
             '#scoreboardInPolygons table { margin-top:5px; border-collapse: collapse; empty-cells: show; width: 100%; clear: both; }' +
-            '#scoreboardInPolygons table td, #scoreboardInPolygons table th { border-bottom: 1px solid #0b314e; padding:3px; color:white; background-color:#1b415e }' +
-            '#scoreboardInPolygons table tr.res td { background-color: #005684; }' +
-            '#scoreboardInPolygons table tr.enl td { background-color: #017f01; }' +
-            '#scoreboardInPolygons table th { text-align: center; }' +
-            '#scoreboardInPolygons table td { text-align: center; }' +
-            '#scoreboardInPolygons table.portals td { white-space: nowrap; }' +
-            '#scoreboardInPolygons .firstColumn { margin-top: 10px;}' +
-            '#scoreboardInPolygons .disclaimer { margin-top: 10px; font-size:10px; }' +
-            '.scoreboardInPolygons span { display: block; float: left;font-weight: bold; cursor: help; height: 21px; line-height: 22px; }' +
-            '.scoreboardInPolygons .res { background: #005684; overflow:hidden; }' +
-            '.scoreboardInPolygons .enl { background: #017f01; overflow:hidden; }' +
+            '#scoreboardInPolygons table tr td.metric-name { margin-top: 10px; }' +
+            '#scoreboardInPolygons table tr td span { display: block; float: left;font-weight: bold; cursor: help; height: 21px; line-height: 22px; }' +
+            '#scoreboardInPolygons table tr td span.res { background-color: #005684; overflow:hidden; }' +
+            '#scoreboardInPolygons table tr td span.enl { background-color: #017f01; overflow:hidden; }' +
+            '#scoreboardInPolygons table th, #scoreboardInPolygons table td { border-bottom: 1px solid #0b314e; padding:3px; color:white; background-color:#1b415e; text-align: center; }' +
             '</style>');
 
     };
