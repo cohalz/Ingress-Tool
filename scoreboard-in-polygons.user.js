@@ -129,7 +129,7 @@ const wrapper = function (pluginInfo) {
 
             for (const polygon of polygons) {
 
-                if (link.getLatLngs().some((linkPoint) => plugin.scoreboardInPolygons.containsPoint(polygon, linkPoint))) {
+                if (link.getLatLngs().some((node) => plugin.scoreboardInPolygons.containsPoint(polygon, node))) {
 
                     linkCount[link.options.team]++;
                     break;
@@ -155,7 +155,7 @@ const wrapper = function (pluginInfo) {
 
             for (const polygon of polygons) {
 
-                if (field.getLatLngs().every((fieldPoint) => plugin.scoreboardInPolygons.containsPoint(polygon, fieldPoint))) {
+                if (field.getLatLngs().every((node) => plugin.scoreboardInPolygons.containsPoint(polygon, node))) {
 
                     fieldCount[field.options.team]++;
                     break;
