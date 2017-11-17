@@ -236,8 +236,8 @@ const wrapper = function (pluginInfo) {
 
         barGraphHtml += `<tr><td style="text-align:center;">${metricName}</td>`;
         barGraphHtml += `<td class="scoreboardInPolygons" title="Resistance:\t${count[TEAM_RES]}\t${metricName}\nEnlightened:\t${count[TEAM_ENL]}\t${metricName}">`;
-        barGraphHtml += `<span class="res" style="width:${resPer}%;">${Math.round(resPer)}%&nbsp;</span>`;
-        barGraphHtml += `<span class="enl" style="width:${enlPer}%;">&nbsp;${Math.round(enlPer)}%</span>`;
+        barGraphHtml += `<span class="res" style="width:${resPer}%; overflow:hidden;">${Math.round(resPer)}%</span>`;
+        barGraphHtml += `<span class="enl" style="width:${enlPer}%; overflow:hidden;">${Math.round(enlPer)}%</span>`;
         barGraphHtml += '</td><tr>';
 
         return barGraphHtml;
