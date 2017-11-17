@@ -4,8 +4,7 @@
 // @version        0.2.0.20171117.115622
 // @category       Info
 // @namespace      https://github.com/jonatkins/ingress-intel-total-conversion
-// @updateURL      https://static.iitc.me/build/test/plugins/scoreboard-in-polygons.meta.js
-// @downloadURL    https://static.iitc.me/build/test/plugins/scoreboard-in-polygons.user.js
+// @downloadURL    https://github.com/cohalz/Ingress-Tool/raw/master/scoreboard-in-polygons.user.js
 // @description    [iitc-test-2017-11-17-115622] Display a scoreboard about all portals, link & field counts in polygons.
 // @include        https://*.ingress.com/intel*
 // @include        http://*.ingress.com/intel*
