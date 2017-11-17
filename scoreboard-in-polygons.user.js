@@ -1,12 +1,12 @@
 // ==UserScript==
 // @id             iitc-plugin-scoreboard-in-polygons@cohalz
 // @name           IITC plugin: show a scoreboard in polygons.
-// @version        0.2.0.20171116.231643
+// @version        0.2.0.20171117.115622
 // @category       Info
 // @namespace      https://github.com/jonatkins/ingress-intel-total-conversion
 // @updateURL      https://static.iitc.me/build/test/plugins/scoreboard-in-polygons.meta.js
 // @downloadURL    https://static.iitc.me/build/test/plugins/scoreboard-in-polygons.user.js
-// @description    [iitc-test-2017-11-16-231643] Display a scoreboard about all portals, link & field counts in polygons.
+// @description    [iitc-test-2017-11-17-115622] Display a scoreboard about all portals, link & field counts in polygons.
 // @include        https://*.ingress.com/intel*
 // @include        http://*.ingress.com/intel*
 // @match          https://*.ingress.com/intel*
@@ -26,7 +26,7 @@ const wrapper = function (pluginInfo) {
     //PLUGIN AUTHORS: writing a plugin outside of the IITC build environment? if so, delete these lines!!
     //(leaving them in place might break the 'About IITC' page or break update checks)
     pluginInfo.buildName = 'iitc-test';
-    pluginInfo.dateTimeVersion = '20171116.231643';
+    pluginInfo.dateTimeVersion = '20171117.115622';
     pluginInfo.pluginId = 'scoreboard-in-polygons';
     //END PLUGIN AUTHORS NOTE
 
@@ -172,7 +172,16 @@ const wrapper = function (pluginInfo) {
 
     window.plugin.scoreboardInPolygons.displayScoreboard = function () {
 
-        const html = window.plugin.scoreboardInPolygons.portalTable();
+        if (window.plugin.scoreboardInPolygons.getVisiblePolygons().length == 0) {
+
+            alert("No visible polygons");          
+
+            return;
+
+        }
+
+
+        const html = window.plugin.scoreboardInPolygons.createScoreboardTable();
 
         if (window.useAndroidPanes()) {
 
@@ -193,38 +202,62 @@ const wrapper = function (pluginInfo) {
     };
 
     // A function that creates the html code for the scoreboard table
-    window.plugin.scoreboardInPolygons.portalTable = function () {
+    window.plugin.scoreboardInPolygons.createScoreboardTable = function () {
 
         let html = "";
 
-        // Create the header
+        const visiblePolygons = window.plugin.scoreboardInPolygons.getVisiblePolygons();
+
+        if (visiblePolygons.length == 0) {
+
+        alert("No visible polygons");          
+
+        return;
+
+        }
+
+        const portalCount = window.plugin.scoreboardInPolygons.getPortalCount(visiblePolygons);
+        const linkCount = window.plugin.scoreboardInPolygons.getLinkCount(visiblePolygons);
+        const fieldCount = window.plugin.scoreboardInPolygons.getFieldCount(visiblePolygons);
+
+        const resPortalsPer = 100 * portalCount[TEAM_RES] / (portalCount[TEAM_ENL] + portalCount[TEAM_RES]);
+        const enlPortalsPer = 100 - resPortalsPer;
+
+        const resLinksPer = 100 * linkCount[TEAM_RES] / (linkCount[TEAM_ENL] + linkCount[TEAM_RES]);
+        const enlLinksPer = 100 - resLinksPer;
+
+        const resFieldsPer = 100 * fieldCount[TEAM_RES] / (fieldCount[TEAM_ENL] + fieldCount[TEAM_RES]);
+        const enlFieldsPer = 100 - resFieldsPer;
+
+
         html += '<table class="portals">' +
             '<tr>' +
             '<th class="firstColumn">Metrics</th>' +
-            '<th class="enl" >Enlightened</th>' +
-            '<th class="res" >Resistance</th>' +
+            '<th class="secondColumn">Scoreboards</th>' +
             '</tr>\n';
 
-        const visiblePolygons = window.plugin.scoreboardInPolygons.getVisiblePolygons(),
-            portalCount = window.plugin.scoreboardInPolygons.getPortalCount(visiblePolygons),
-            linkCount = window.plugin.scoreboardInPolygons.getLinkCount(visiblePolygons),
-            fieldCount = window.plugin.scoreboardInPolygons.getFieldCount(visiblePolygons);
+        html += '<tr><td style="text-align:center;">Portals</td>'
 
-        // Creation of the html code
-        html += '<tr><td class="firstColumn" style="text-align:center;">Number of Portals</td>' +
-        `<td class="enl" style="text-align:center;">${portalCount[TEAM_ENL]}</td>` +
-        `<td class="res" style="text-align:center;">${portalCount[TEAM_RES]}</td></tr>` +
-            '<tr><td class="firstColumn" style="text-align:center;">Number of Links</td>' +
-        `<td class="enl" style="text-align:center;">${linkCount[TEAM_ENL]}</td>` +
-        `<td class="res" style="text-align:center;">${linkCount[TEAM_RES]}</td></tr>` +
-            '<tr><td class="firstColumn" style="text-align:center;">Number of Fields</td>' +
-        `<td class="enl" style="text-align:center;">${fieldCount[TEAM_ENL]}</td>` +
-        `<td class="res" style="text-align:center;">${fieldCount[TEAM_RES]}</td></tr>`;
+        html += `<td class="scoreboardInPolygons" title="Resistance:\t${portalCount[TEAM_RES]}\tPortals\nEnlightened:\t${portalCount[TEAM_ENL]}\tPortals">`;
+        html += `<span class="res" style="width:${resPortalsPer}%;">${Math.round(resPortalsPer)}%&nbsp;</span>`;
+        html += `<span class="enl" style="width:${enlPortalsPer}%;">&nbsp;${Math.round(enlPortalsPer)}%</span>`;
+      html += '</td></tr>';
 
-        html += '</table>';
+        html += '<tr><td style="text-align:center;">Links</td>'
+
+        html += `<td class="scoreboardInPolygons" title="Resistance:\t${linkCount[TEAM_RES]}\tLinks\nEnlightened:\t${linkCount[TEAM_ENL]}\tLinks">`;
+        html += `<span class="res" style="width:${resLinksPer}%;">${Math.round(resLinksPer)}%&nbsp;</span>`;
+        html += `<span class="enl" style="width:${enlLinksPer}%;">&nbsp;${Math.round(enlLinksPer)}%</span>`;
+      html += '</td></tr>';
+
+
+        html += '<tr><td style="text-align:center;">Fields</td>'
+        html += `<td class="scoreboardInPolygons" title="Resistance:\t${fieldCount[TEAM_RES]}\tFields\nEnlightened:\t${fieldCount[TEAM_ENL]}\tFields">`;
+        html += `<span class="res" style="width:${resFieldsPer}%;">${Math.round(resFieldsPer)}%&nbsp;</span>`;
+        html += `<span class="enl" style="width:${enlFieldsPer}%;">&nbsp;${Math.round(enlFieldsPer)}%</span>`;
+      html += '</td><tr></table>';
 
         return html;
-
     };
 
     const setup = function () {
@@ -237,7 +270,7 @@ const wrapper = function (pluginInfo) {
 
         } else {
 
-            $('#toolbox').append(' <a onclick="window.plugin.scoreboardInPolygons.displayScoreboard()" title="Display a dynamic scoreboard in the current polygons">ScoreboardInPolygons</a>');
+            $('#toolbox').append(' <a onclick="window.plugin.scoreboardInPolygons.displayScoreboard()" title="Display a dynamic scoreboard in the current polygons">Scoreboard In Polygons</a>');
 
         }
         //set style for the scoreboard and its cells
@@ -252,13 +285,16 @@ const wrapper = function (pluginInfo) {
             '#scoreboardInPolygons table.portals td { white-space: nowrap; }' +
             '#scoreboardInPolygons .firstColumn { margin-top: 10px;}' +
             '#scoreboardInPolygons .disclaimer { margin-top: 10px; font-size:10px; }' +
+            '.scoreboardInPolygons span { display: block; float: left;font-weight: bold; cursor: help; height: 21px; line-height: 22px; }' +
+            '.scoreboardInPolygons .res { background: #005684; }' +
+            '.scoreboardInPolygons .enl { background: #017f01; }' +
             '</style>');
 
     };
 
     if (window.plugin.drawTools === undefined) {
 
-        alert("'Cross-Links' requires 'draw-tools'");
+        alert("'scoreboard-in-polygons' requires 'draw-tools'");
 
         return;
 
