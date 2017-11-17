@@ -193,7 +193,7 @@ const wrapper = function (pluginInfo) {
                 "html": `<div id="scoreboardInPolygons">${html}</div>`,
                 "id": 'ScoreboardInPolygons',
                 "title": 'Scoreboard In Polygons',
-                "width": 700
+                "width": 500
             });
 
         }
