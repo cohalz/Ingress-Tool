@@ -1,4 +1,5 @@
 // ==UserScript==
+// @author         cohalz
 // @id             iitc-plugin-scoreboard-in-polygons@cohalz
 // @name           IITC plugin: show a scoreboard in polygons.
 // @version        0.2.0.20171117.115622
