@@ -261,7 +261,8 @@ const wrapper = function (pluginInfo) {
             '#scoreboardInPolygons table tr td span { display: block; float: left;font-weight: bold; cursor: help; height: 21px; line-height: 22px; }' +
             '#scoreboardInPolygons table tr td span.res { background-color: #005684; overflow:hidden; }' +
             '#scoreboardInPolygons table tr td span.enl { background-color: #017f01; overflow:hidden; }' +
-            '#scoreboardInPolygons table th, #scoreboardInPolygons table td { border-bottom: 1px solid #0b314e; padding:3px; color:white; background-color:#1b415e; text-align: center; }' +
+            '#scoreboardInPolygons table th, #scoreboardInPolygons table td { padding:3px; color:white; background-color:#1b415e; text-align: center; }' +
+            '#scoreboardInPolygons table th {border-bottom: 2px solid #0b314e; }' +
             '#scoreboardInPolygons table th.metrics { width: 20% }' +
             '</style>');
 
