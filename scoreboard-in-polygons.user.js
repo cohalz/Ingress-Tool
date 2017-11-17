@@ -36,8 +36,9 @@ const wrapper = function (pluginInfo) {
 
     window.plugin.scoreboardInPolygons.getVisiblePolygons = function () {
 
-        const displayBounds = map.getBounds(),
-            visiblePolygons = [];
+        const displayBounds = map.getBounds();
+
+        const visiblePolygons = [];
 
         for (const layer of plugin.drawTools.drawnItems.getLayers()) {
 
@@ -294,8 +295,8 @@ const wrapper = function (pluginInfo) {
 };
 
 // inject code into site context
-const script = document.createElement('script'),
-    info = {};
+const script = document.createElement('script');
+const info = {};
 
 if (typeof GM_info !== 'undefined' && GM_info && GM_info.script) {
 
