@@ -172,9 +172,9 @@ const wrapper = function (pluginInfo) {
 
     window.plugin.scoreboardInPolygons.displayScoreboard = function () {
 
-        if (window.plugin.scoreboardInPolygons.getVisiblePolygons().length == 0) {
+        if (window.plugin.scoreboardInPolygons.getVisiblePolygons().length === 0) {
 
-            alert("No visible polygons");          
+            alert("No visible polygons");
 
             return;
 
@@ -208,14 +208,6 @@ const wrapper = function (pluginInfo) {
 
         const visiblePolygons = window.plugin.scoreboardInPolygons.getVisiblePolygons();
 
-        if (visiblePolygons.length == 0) {
-
-        alert("No visible polygons");          
-
-        return;
-
-        }
-
         const portalCount = window.plugin.scoreboardInPolygons.getPortalCount(visiblePolygons);
         const linkCount = window.plugin.scoreboardInPolygons.getLinkCount(visiblePolygons);
         const fieldCount = window.plugin.scoreboardInPolygons.getFieldCount(visiblePolygons);
@@ -229,35 +221,34 @@ const wrapper = function (pluginInfo) {
         const resFieldsPer = 100 * fieldCount[TEAM_RES] / (fieldCount[TEAM_ENL] + fieldCount[TEAM_RES]);
         const enlFieldsPer = 100 - resFieldsPer;
 
-
         html += '<table class="portals">' +
             '<tr>' +
             '<th class="firstColumn">Metrics</th>' +
             '<th class="secondColumn">Scoreboards</th>' +
             '</tr>\n';
 
-        html += '<tr><td style="text-align:center;">Portals</td>'
+        html += '<tr><td style="text-align:center;">Portals</td>';
 
         html += `<td class="scoreboardInPolygons" title="Resistance:\t${portalCount[TEAM_RES]}\tPortals\nEnlightened:\t${portalCount[TEAM_ENL]}\tPortals">`;
         html += `<span class="res" style="width:${resPortalsPer}%;">${Math.round(resPortalsPer)}%&nbsp;</span>`;
         html += `<span class="enl" style="width:${enlPortalsPer}%;">&nbsp;${Math.round(enlPortalsPer)}%</span>`;
-      html += '</td></tr>';
+        html += '</td></tr>';
 
-        html += '<tr><td style="text-align:center;">Links</td>'
+        html += '<tr><td style="text-align:center;">Links</td>';
 
         html += `<td class="scoreboardInPolygons" title="Resistance:\t${linkCount[TEAM_RES]}\tLinks\nEnlightened:\t${linkCount[TEAM_ENL]}\tLinks">`;
         html += `<span class="res" style="width:${resLinksPer}%;">${Math.round(resLinksPer)}%&nbsp;</span>`;
         html += `<span class="enl" style="width:${enlLinksPer}%;">&nbsp;${Math.round(enlLinksPer)}%</span>`;
-      html += '</td></tr>';
+        html += '</td></tr>';
 
-
-        html += '<tr><td style="text-align:center;">Fields</td>'
+        html += '<tr><td style="text-align:center;">Fields</td>';
         html += `<td class="scoreboardInPolygons" title="Resistance:\t${fieldCount[TEAM_RES]}\tFields\nEnlightened:\t${fieldCount[TEAM_ENL]}\tFields">`;
         html += `<span class="res" style="width:${resFieldsPer}%;">${Math.round(resFieldsPer)}%&nbsp;</span>`;
         html += `<span class="enl" style="width:${enlFieldsPer}%;">&nbsp;${Math.round(enlFieldsPer)}%</span>`;
-      html += '</td><tr></table>';
+        html += '</td><tr></table>';
 
         return html;
+
     };
 
     const setup = function () {
@@ -326,4 +317,3 @@ if (typeof GM_info !== 'undefined' && GM_info && GM_info.script) {
 }
 script.appendChild(document.createTextNode(`(${wrapper})(${JSON.stringify(info)});`));
 (document.body || document.head || document.documentElement).appendChild(script);
-
