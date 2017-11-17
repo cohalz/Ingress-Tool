@@ -236,8 +236,8 @@ const wrapper = function (pluginInfo) {
 
         barGraphHtml += `<tr><td style="text-align:center;">${metricName}</td>`;
         barGraphHtml += `<td class="scoreboardInPolygons" title="Resistance:\t${count[TEAM_RES]}\t${metricName}\nEnlightened:\t${count[TEAM_ENL]}\t${metricName}">`;
-        barGraphHtml += `<span class="res" style="width:${resPer}%; overflow:hidden;">${Math.round(resPer)}%</span>`;
-        barGraphHtml += `<span class="enl" style="width:${enlPer}%; overflow:hidden;">${Math.round(enlPer)}%</span>`;
+        barGraphHtml += `<span class="res" style="width:${resPer}%;">${Math.round(resPer)}%</span>`;
+        barGraphHtml += `<span class="enl" style="width:${enlPer}%;">${Math.round(enlPer)}%</span>`;
         barGraphHtml += '</td><tr>';
 
         return barGraphHtml;
@@ -261,7 +261,7 @@ const wrapper = function (pluginInfo) {
         $('head').append('<style>' +
             '#scoreboardInPolygons.mobile {background: transparent; border: 0 none !important; height: 100% !important; width: 100% !important; left: 0 !important; top: 0 !important; position: absolute; overflow: auto; }' +
             '#scoreboardInPolygons table { margin-top:5px; border-collapse: collapse; empty-cells: show; width: 100%; clear: both; }' +
-            '#scoreboardInPolygons table td, #scoreboardInPolygons table th {border-bottom: 1px solid #0b314e; padding:3px; color:white; background-color:#1b415e}' +
+            '#scoreboardInPolygons table td, #scoreboardInPolygons table th { border-bottom: 1px solid #0b314e; padding:3px; color:white; background-color:#1b415e }' +
             '#scoreboardInPolygons table tr.res td { background-color: #005684; }' +
             '#scoreboardInPolygons table tr.enl td { background-color: #017f01; }' +
             '#scoreboardInPolygons table th { text-align: center; }' +
@@ -270,8 +270,8 @@ const wrapper = function (pluginInfo) {
             '#scoreboardInPolygons .firstColumn { margin-top: 10px;}' +
             '#scoreboardInPolygons .disclaimer { margin-top: 10px; font-size:10px; }' +
             '.scoreboardInPolygons span { display: block; float: left;font-weight: bold; cursor: help; height: 21px; line-height: 22px; }' +
-            '.scoreboardInPolygons .res { background: #005684; }' +
-            '.scoreboardInPolygons .enl { background: #017f01; }' +
+            '.scoreboardInPolygons .res { background: #005684; overflow:hidden; }' +
+            '.scoreboardInPolygons .enl { background: #017f01; overflow:hidden; }' +
             '</style>');
 
     };
